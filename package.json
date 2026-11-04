@@ -1,0 +1,10 @@
+{
+  "name": "courtside",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Phone-friendly volleyball scoreboard",
+  "scripts": {
+    "build": "sh build.sh",
+    "test": "node web-check.mjs"
+  }
+}
