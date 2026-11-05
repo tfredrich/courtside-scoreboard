@@ -14,6 +14,7 @@ function element() {
     attributes: {},
     value: '',
     textContent: '',
+    contains(node) { return this === node || this.children.some(child => child.contains(node)); },
     append(...nodes) { this.children.push(...nodes); },
     replaceChildren() { this.children = []; },
     setAttribute(name, value) { this.attributes[name] = value; },
@@ -163,7 +164,7 @@ test('swapping and reloading preserve team identities and scores', () => {
   p.click('swap');
   const reloaded = page(p.storage);
   const firstCard = reloaded.get('teams').children[0];
-  assert.ok(firstCard.children.includes(reloaded.get('team-1-score')));
+  assert.ok(firstCard.contains(reloaded.get('team-1-score')));
   assert.equal(reloaded.get('team-1-score').textContent, '07');
   assert.equal(reloaded.get('team-0-sets').textContent, '1');
   assert.equal(reloaded.get('team-1-sets').textContent, '0');

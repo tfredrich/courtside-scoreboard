@@ -35,6 +35,15 @@ button {
   touch-action: manipulation;
 }
 
+#settings, nav button, dialog button {
+  background: #cbd5e1;
+  color: #0c1422;
+}
+
+#settings:active, nav button:active:not(:disabled), dialog button:active {
+  background: #aebed0;
+}
+
 button:disabled {
   opacity: .45;
   cursor: default;
@@ -111,6 +120,10 @@ h2 {
   overflow-wrap: anywhere;
   font-size: clamp(20px,4vw,36px);
   margin-top: 0;
+}
+
+.score-space {
+  display: contents;
 }
 
 .score {
@@ -209,7 +222,6 @@ fieldset {
 }
 
 dialog button {
-  background: #26394e;
   margin: 4px 4px 4px 0;
 }
 
@@ -274,4 +286,137 @@ dialog button {
     font-size: clamp(60px,19vw,100px);
   }
 
+}
+
+/* A wide phone still has very little height available for scoring. */
+@media (orientation: landscape) and (max-height: 540px) {
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(min-content, 1fr) auto;
+    gap: 8px;
+    min-height: 100dvh;
+    height: 100dvh;
+    padding: max(8px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  }
+
+  main > * {
+    grid-column: 1 / -1;
+  }
+
+  header {
+    padding-bottom: 0;
+    min-width: 0;
+  }
+
+  header > div {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  h1 {
+    font-size: 19px;
+    margin: 0;
+  }
+
+  header small {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .scoreboard-label {
+    display: none;
+  }
+
+  .teams {
+    gap: 12px;
+  }
+
+  .team {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(64px, 1fr) auto;
+    column-gap: 8px;
+    padding: 8px 12px;
+    border-radius: 16px;
+  }
+
+  .team-head {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 48px;
+  }
+
+  .serve {
+    font-size: 20px;
+  }
+
+  .ball {
+    font-size: 28px;
+  }
+
+  .sets-won {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    margin: 0;
+    padding: 4px 8px;
+    font-size: 9px;
+  }
+
+  .score-space {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    container-type: size;
+  }
+
+  .score {
+    align-self: center;
+    /* Fit the score row with 8px above/below and 12px on either side.
+       Allow extra width per digit so even unusually high scores fit. */
+    font-size: max(32px, min(calc(100cqh - 16px), calc((100cqw - 24px) / var(--score-digits) / .65)));
+    line-height: 1;
+  }
+
+  .point {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    min-height: 48px;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  nav {
+    margin-top: 0;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  nav button {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  main:has(#next:not([hidden])) nav {
+    grid-column: 1;
+  }
+
+  #next {
+    grid-column: 2;
+    grid-row: 3;
+    width: auto;
+    margin: 0;
+    font-size: 12px;
+  }
+
+  #status, #storage {
+    margin: 0;
+    font-size: 12px;
+  }
+
+  #status:empty, #storage:empty {
+    display: none;
+  }
 }

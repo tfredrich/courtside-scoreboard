@@ -95,6 +95,10 @@ function render() {
     score.id = `team-${team}-score`;
     score.textContent = String(data.scores[team]).padStart(2, "0");
     score.setAttribute("aria-label", `${data.names[team]}: ${data.scores[team]} points`);
+    const scoreSpace = document.createElement("div");
+    scoreSpace.className = "score-space";
+    scoreSpace.style.setProperty("--score-digits", score.textContent.length);
+    scoreSpace.append(score);
     const setsWon = document.createElement("div");
     setsWon.className = "sets-won";
     setsWon.setAttribute("aria-label", `${data.names[team]}: ${data.sets[team]} sets won`);
@@ -117,7 +121,7 @@ function render() {
       render();
     };
     head.append(serve, ball);
-    card.append(head, score, setsWon, point);
+    card.append(head, scoreSpace, setsWon, point);
     $("teams").append(card);
   }
   $("set").textContent = `SET ${Math.min(completedSets() + 1, data.best)}`;
