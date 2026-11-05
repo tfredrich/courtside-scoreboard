@@ -1,6 +1,8 @@
-# Courtside
+# Courtside Scoreboard
 
 A phone-friendly volleyball scoreboard for courtside scoring, with large touch controls, editable team names, serving selection, undo, side swapping, match settings, and set tracking. Match state saves locally in the current browser after every action.
+
+See it in action at: https://courtside-scoreboard.tfredrich.workers.dev/
 
 ## Getting started
 
