@@ -16,6 +16,24 @@ let data = initial(), undo = [];
 
 const $ = id => document.getElementById(id);
 
+const landscapeLayout = matchMedia('(orientation: landscape) and (max-height: 540px)');
+
+function updateLayout() {
+  // Move the existing controls so keyboard navigation follows their visible order.
+  if (landscapeLayout.matches) {
+    $("landscapeSet").append($("set"));
+    $("controls").insertBefore($("next"), $("reset"));
+    $("controls").append($("settings"));
+  } else {
+    $("matchSummary").append($("set"));
+    $("matchHeader").append($("settings"));
+    $("scoreboard").insertBefore($("next"), $("status"));
+  }
+}
+
+landscapeLayout.addEventListener('change', updateLayout);
+updateLayout();
+
 try {
   const saved = JSON.parse(localStorage.getItem(key));
   if (

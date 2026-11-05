@@ -172,8 +172,12 @@ nav {
   flex-wrap: wrap;
 }
 
-nav button:last-child {
+#reset {
   margin-left: auto;
+}
+
+#landscapeSet {
+  display: none;
 }
 
 #next {
@@ -278,7 +282,7 @@ dialog button {
     padding: 10px;
   }
 
-  nav button:last-child {
+  #reset {
     margin-left: 0;
   }
 
@@ -292,8 +296,8 @@ dialog button {
 @media (orientation: landscape) and (max-height: 540px) {
   main {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: auto minmax(min-content, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(min-content, 1fr) auto;
     gap: 8px;
     min-height: 100dvh;
     height: 100dvh;
@@ -305,27 +309,6 @@ dialog button {
   }
 
   header {
-    padding-bottom: 0;
-    min-width: 0;
-  }
-
-  header > div {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-  }
-
-  h1 {
-    font-size: 19px;
-    margin: 0;
-  }
-
-  header small {
-    font-size: 12px;
-    white-space: nowrap;
-  }
-
-  .scoreboard-label {
     display: none;
   }
 
@@ -391,21 +374,34 @@ dialog button {
   nav {
     margin-top: 0;
     gap: 8px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   nav button {
+    flex: 0 0 auto;
     font-size: 12px;
     padding: 10px;
   }
 
-  main:has(#next:not([hidden])) nav {
-    grid-column: 1;
+  #landscapeSet {
+    display: block;
+    margin-inline: auto;
+    padding: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    color: #eff5fa;
+  }
+
+  #reset {
+    margin-left: 0;
+  }
+
+  #settings {
+    padding: 12px;
   }
 
   #next {
-    grid-column: 2;
-    grid-row: 3;
     width: auto;
     margin: 0;
     font-size: 12px;

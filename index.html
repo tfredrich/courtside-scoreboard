@@ -10,11 +10,11 @@
     <title>Courtside · Volleyball</title>
   </head>
   <body>
-    <main>
-      <header>
+    <main id="scoreboard">
+      <header id="matchHeader">
         <div>
           <h1>◉ COURTSIDE</h1>
-          <small><span class="scoreboard-label">VOLLEYBALL SCOREBOARD · </span><span id="set"></span></small>
+          <small id="matchSummary"><span class="scoreboard-label">VOLLEYBALL SCOREBOARD · </span><span id="set"></span></small>
         </div>
         <button id="settings" aria-label="Match settings" title="Match settings">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -27,9 +27,10 @@
         </button>
       </header>
       <section class="teams" aria-label="Scoreboard" id="teams"></section>
-      <nav aria-label="Match controls">
+      <nav id="controls" aria-label="Match controls">
         <button id="undo">Undo last point</button>
         <button id="swap">Swap sides</button>
+        <span id="landscapeSet"></span>
         <button id="reset">New match</button>
       </nav>
       <button id="next" hidden></button>
