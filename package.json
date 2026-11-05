@@ -2,9 +2,19 @@
   "name": "courtside",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "Phone-friendly volleyball scoreboard",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "build": "sh build.sh",
-    "test": "node web-check.mjs"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build:macos": "npm run build && node scripts/build-macos.js",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
   }
 }

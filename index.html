@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0c1422">
+    <meta name="description" content="Courtside volleyball scoreboard with large touch controls.">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <title>Courtside · Volleyball</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <h1>◉ COURTSIDE</h1>
+          <small>VOLLEYBALL SCOREBOARD · <span id="set"></span></small>
+        </div>
+        <button id="settings" aria-label="Match settings" title="Match settings">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true" focusable="false"
+            style="display:block">
+            <path d="m9.5 3-.5 2-2 1-2-.5-2.5 4 1.5 1.5v2L2.5 14.5l2.5 4 2-.5 2 1 .5 2h5l.5-2 2-1 2 .5 2.5-4L20 13v-2l1.5-1.5-2.5-4-2 .5-2-1-.5-2Z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </header>
+      <section class="teams" aria-label="Scoreboard" id="teams"></section>
+      <nav aria-label="Match controls">
+        <button id="undo">Undo last point</button>
+        <button id="swap">Swap sides</button>
+        <button id="reset">New match</button>
+      </nav>
+      <button id="next" hidden></button>
+      <p id="status" role="status" aria-live="polite"></p>
+      <p id="storage" role="status"></p>
+    </main>
+    <dialog id="settingsDialog">
+      <form id="settingsForm">
+        <h2>Match settings</h2>
+        <label>Team 1 <input id="home" maxlength="18" required></label>
+        <label>Team 2 <input id="away" maxlength="18" required></label>
+        <fieldset id="rules">
+          <legend>Match format</legend>
+          <label>
+            Best of
+            <select id="best">
+              <option value="3">3 sets</option>
+              <option value="5">5 sets</option>
+            </select>
+          </label>
+          <label>
+            Points per set
+            <select id="points">
+              <option>21</option>
+              <option>25</option>
+              <option>15</option>
+              <option>11</option>
+            </select>
+          </label>
+        </fieldset>
+        <p>Deciding set: 11 points for 11- or 15-point sets, otherwise 15. Win every set by two.</p>
+        <p>Start a new match to change the format.</p>
+        <button type="submit">Save &amp; close</button>
+        <button type="button" id="cancelSettings">Cancel</button>
+      </form>
+    </dialog>
+    <dialog id="resetDialog">
+      <h2>Start a new match?</h2>
+      <p>This clears scores and completed sets.</p>
+      <button id="cancelReset">Keep playing</button>
+      <button id="confirmReset">Start new match</button>
+    </dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
