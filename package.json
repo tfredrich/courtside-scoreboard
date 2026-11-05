@@ -11,10 +11,12 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "deploy": "wrangler deploy",
     "build:macos": "npm run build && node scripts/build-macos.js",
     "test": "node --test"
   },
   "devDependencies": {
-    "vite": "^8.3.5"
+    "vite": "^8.3.5",
+    "wrangler": "4.157.0"
   }
 }

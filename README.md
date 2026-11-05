@@ -51,6 +51,29 @@ Tests use Node's built-in test runner. They cover scoring, serving selection, un
 node --test test/app.test.js
 ```
 
+## Cloudflare deployment
+
+The project deploys to Cloudflare Workers as a static website. `wrangler.jsonc` tells Wrangler to upload the production files from `dist/`; no Worker script or Cloudflare Vite plugin is needed.
+
+In Cloudflare Workers Builds, use these settings:
+
+| Setting | Value |
+| --- | --- |
+| Root directory | Repository root |
+| Build command | `npm run build` |
+| Deploy command | `npm run deploy` |
+
+The existing `npx wrangler deploy` command also works and uses the Wrangler version installed from `package-lock.json`. Set `name` in `wrangler.jsonc` to match the Worker name in your Cloudflare dashboard; the default here is `courtside-scoreboard`.
+
+To validate deployment locally without publishing:
+
+```sh
+npm run build
+npm run deploy -- --dry-run
+```
+
+For a manual deployment, authenticate with `npx wrangler login`, then run `npm run build` and `npm run deploy`.
+
 ## Tech stack
 
 - Vanilla JavaScript, HTML, and CSS for the browser application.
