@@ -1,6 +1,6 @@
 # Courtside Scoreboard
 
-A phone-friendly volleyball scoreboard for courtside scoring, with large touch controls, editable team names, serving selection, undo, side swapping, match settings, and set tracking. Match state saves locally in the current browser after every action.
+A phone-friendly volleyball scoreboard for players, coaches, and courtside scorekeepers, with large touch controls, editable team names, serving selection, undo, side swapping, match settings, and set tracking. It runs entirely in the browser, adapts to portrait and landscape screens, and saves match state locally in the current browser after every action.
 
 See it in action at: https://courtside-scoreboard.tfredrich.workers.dev/
 
@@ -10,7 +10,7 @@ See it in action at: https://courtside-scoreboard.tfredrich.workers.dev/
 
 - Node.js 22.12 or newer, as specified in `package.json`.
 - npm, included with Node.js.
-- Apple's Swift command line tools only if you want the optional native macOS preview.
+- macOS and Apple's Swift command line tools only if you want the optional native macOS preview.
 
 ### Installation
 
@@ -47,7 +47,7 @@ npm run preview
 
 Open the URL Vite prints. The preview server is for local verification; deploy the contents of `dist/` to an HTTPS static host for use on a phone. Assets use relative paths, allowing deployment at either a domain root or a subdirectory. The website runs entirely in the browser and requires no application backend.
 
-Tests use Node's built-in test runner. They cover scoring, serving selection, undo, deuce, all supported match formats, reset confirmation, swapping, saved matches, and older-save compatibility. The build test rebuilds `dist/` and verifies the generated service worker's asset list, old-cache cleanup, and offline navigation fallback using browser API mocks. To run only the scoring tests:
+Tests use Node's built-in test runner. They cover scoring, serving selection, undo, deuce, all supported match formats, reset confirmation, swapping, saved matches, older-save compatibility, and responsive control placement. The build test rebuilds `dist/` and verifies the generated service worker's asset list, old-cache cleanup, and offline navigation fallback using browser API mocks. To run only the application behavior tests:
 
 ```sh
 node --test test/app.test.js
@@ -79,7 +79,8 @@ For a manual deployment, authenticate with `npx wrangler login`, then run `npm r
 ## Tech stack
 
 - Vanilla JavaScript, HTML, and CSS for the browser application.
-- Vite for development, production builds, and browser previews.
+- Vite 8 for development, production builds, and browser previews.
+- Cloudflare Wrangler 4 for static-site deployment to Workers.
 - Browser local storage for match state and a service worker for offline assets.
 - Node's built-in test runner for automated checks.
 - Swift, Cocoa, and WebKit for the optional native macOS preview.
@@ -94,13 +95,15 @@ test/               Application and production-build tests
 vite.config.js      Relative deployment paths and offline asset generation
 package.json        npm commands, Node requirement, and dependencies
 package-lock.json   Pinned dependency versions for npm ci
+wrangler.jsonc      Cloudflare Worker name and static asset configuration
+AGENTS.md           Repository and contributor guidelines
 native/macos/       Optional Swift preview source
 scripts/            Optional native build tooling
 dist/               Generated website; ignored by Git
 build/              Generated native preview; ignored by Git
 ```
 
-`node_modules/` contains installed dependencies and is also ignored by Git. If an older checkout has a `target/` directory, it contains artifacts from the retired Rust build. The current npm workflow does not use it, and it can be deleted.
+`node_modules/` contains installed dependencies and is also ignored by Git. The current npm workflow does not use `target/`.
 
 ## Optional macOS preview
 
@@ -114,12 +117,14 @@ npm run build:macos
 This displays the built website from `dist/`. Keep the executable in `build/macos/` so it can locate those files. To capture the initial view and exit:
 
 ```sh
-./build/macos/courtside-preview --screenshot /tmp/courtside.png
+./build/macos/courtside-preview --screenshot build/macos/courtside.png
 ```
 
 ## Using the scoreboard
 
 Both team scores stay side by side on narrow screens. Tap a team's point button to add a point and assign the serve to that team. Tap the team name to select the serving team manually. Undo restores the previous scoring, serving, or set-transition action; Swap sides changes the display order.
+
+In landscape orientation on screens up to 540 pixels high, the set indicator, set-transition button, and match settings move into the control bar. Keyboard navigation follows their visible order.
 
 The default format is best of three, 21 points per set, with a deciding set to 15. Every set must be won by two points. Match settings also offers best of five and 25-, 15-, or 11-point sets. For 15-point matches, the deciding set goes to 11; 11-point matches use 11 for every set. Match format can be changed before the first point or after starting a new match. Team names remain editable during play; saving settings clears undo history.
 
@@ -131,4 +136,4 @@ Saved matches belong to the current browser and site address; they do not sync b
 
 ## Contributing
 
-Keep application changes in `src/`, static assets in `public/`, and automated checks in `test/`. Run `npm test` before submitting a change. For changes affecting layout or browser interactions, also check the production preview at phone and desktop widths.
+See [AGENTS.md](AGENTS.md) for repository guidelines, coding conventions, testing expectations, and commit and pull request guidance. Keep application changes in `src/`, static assets in `public/`, and automated checks in `test/`. Run `npm test` before submitting a change. For changes affecting layout or browser interactions, also check the production preview at phone and desktop widths, including landscape orientation.
